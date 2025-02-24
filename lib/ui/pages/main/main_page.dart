@@ -39,6 +39,7 @@ class _MainPageState extends State<MainPage> with AfterLayoutMixin<MainPage> {
                   ListViewCryptoData(
                     isLoading: state.isLoading,
                     cryptoDataList: state.cryptoDataList,
+                    onItemTap: cubit.onItemTap,
                   ),
                 ],
               ),
@@ -58,10 +59,12 @@ class _MainPageState extends State<MainPage> with AfterLayoutMixin<MainPage> {
 class ListViewCryptoData extends StatelessWidget {
   final bool isLoading;
   final List<CryptoData> cryptoDataList;
+  final void Function(CryptoData cryptoData, BuildContext context) onItemTap;
 
   const ListViewCryptoData({
     required this.isLoading,
     required this.cryptoDataList,
+    required this.onItemTap,
     super.key,
   });
 
@@ -75,52 +78,55 @@ class ListViewCryptoData extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 final cryptoData = cryptoDataList[index];
 
-                return SizedBox(
-                  width: double.infinity,
-                  height: 68.w,
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: 25.w,
-                        child: Text(
-                          '${index + 1}',
-                          textAlign: TextAlign.center,
-                          style: AppTypes.f14BoldWhite,
-                        ),
-                      ),
-                      Image.network(
-                        cryptoData.image ?? '',
-                        width: 25.w,
-                        height: 25.h,
-                      ),
-                      spacerHorizontal(5.w),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            cryptoData.name ?? '',
+                return GestureDetector(
+                  onTap: () => onItemTap(cryptoData, context),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 68.w,
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 25.w,
+                          child: Text(
+                            '${index + 1}',
+                            textAlign: TextAlign.center,
                             style: AppTypes.f14BoldWhite,
                           ),
-                          Text(
-                            cryptoData.symbol?.toUpperCase() ?? '',
-                            textAlign: TextAlign.start,
-                            style: AppTypes.f14BoldWhite38,
-                          ),
-                        ],
-                      ),
-                      Expanded(
-                        child: Text(
-                          '${cryptoData.currentPrice}\$',
-                          textAlign: TextAlign.end,
-                          style: cryptoData.isGreen()
-                              ? AppTypes.f14BoldGreen
-                              : AppTypes.f14BoldRed,
                         ),
-                      ),
-                      spacerHorizontal(5.w),
-                      CryptoChart(cryptoData: cryptoData),
-                    ],
+                        Image.network(
+                          cryptoData.image ?? '',
+                          width: 25.w,
+                          height: 25.h,
+                        ),
+                        spacerHorizontal(5.w),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              cryptoData.name ?? '',
+                              style: AppTypes.f14BoldWhite,
+                            ),
+                            Text(
+                              cryptoData.symbol?.toUpperCase() ?? '',
+                              textAlign: TextAlign.start,
+                              style: AppTypes.f14BoldWhite38,
+                            ),
+                          ],
+                        ),
+                        Expanded(
+                          child: Text(
+                            '${cryptoData.currentPrice}\$',
+                            textAlign: TextAlign.end,
+                            style: cryptoData.isGreen()
+                                ? AppTypes.f14BoldGreen
+                                : AppTypes.f14BoldRed,
+                          ),
+                        ),
+                        spacerHorizontal(5.w),
+                        CryptoChart(cryptoData: cryptoData),
+                      ],
+                    ),
                   ),
                 );
               },

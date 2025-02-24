@@ -1,5 +1,6 @@
-import 'dart:developer';
-
+import 'package:crypto_test/constants/routes.dart';
+import 'package:crypto_test/constants/strings.dart';
+import 'package:crypto_test/model/crypto_data/crypto_data.dart';
 import 'package:crypto_test/repository/crypto_data_repository_impl.dart';
 import 'package:crypto_test/service/api_service.dart';
 import 'package:crypto_test/ui/components/app_snackbar.dart';
@@ -16,22 +17,6 @@ class MainPageCubit extends Cubit<MainPageState> {
       CryptoCurrenciesRepositoryImpl(apiService: ApiService(Dio()));
 
   Future<void> init(BuildContext context) async {
-    //     if (await checkInternetConnection()) {
-    //   result.fold(
-    //     (failure) {
-    //       if (context.mounted) {
-    //         AppSnackBars.showErrorSnackBar(context, failure);
-    //       }
-    //     },
-    //     (todo) {
-    //       AppSnackBars.showSuccessSnackBar(context, 'Success');
-    //     },
-    //   );
-    // } else {
-    //   if (context.mounted) {
-    //     AppSnackBars.showErrorSnackBar(context, AppStrings.connectionError);
-    //   }
-    // }
     if (await checkInternetConnection()) {
       final result = await cryptoDataRepository.getCryptoData();
       result.fold(
@@ -41,10 +26,14 @@ class MainPageCubit extends Cubit<MainPageState> {
           }
         },
         (success) {
-          AppSnackBars.showSuccessSnackBar(context, 'Success');
+          AppSnackBars.showSuccessSnackBar(context, AppStrings.success);
           emit(state.copyWith(cryptoDataList: success, isLoading: false));
         },
       );
     }
+  }
+
+  void onItemTap(CryptoData cryptoData, BuildContext context) {
+    Navigator.pushNamed(context, AppRoutes.info, arguments: cryptoData);
   }
 }

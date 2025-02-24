@@ -4,7 +4,6 @@ import 'package:crypto_test/ui/theme/types.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
 class AppSnackBars {
   static void showSuccessSnackBar(BuildContext context, String message) {
     _showSnackBar(

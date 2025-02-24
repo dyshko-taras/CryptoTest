@@ -8,6 +8,11 @@ class MessagesEn extends Translations {
           'price': 'Price',
           'last7Days': 'Last 7 Days',
           'close': 'Close',
+          'success': 'Success',
+          'currentPrice': 'Current Price',
+          'marketCap': 'Market Cap',
+          'high24h': 'High 24h',
+          'low24h': 'Low 24h',
         },
       };
 }

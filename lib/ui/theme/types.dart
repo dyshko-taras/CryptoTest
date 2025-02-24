@@ -6,6 +6,8 @@ import 'colors.dart';
 
 class AppTypes {
   static TextStyle f14RegularWhite = _buildTextStyle();
+  static TextStyle f14RegularWhite38 =
+      _buildTextStyle(color: AppColors.white38);
   static TextStyle f14BoldWhite = _buildTextStyle(weight: FontWeight.w700);
   static TextStyle f14BoldWhite38 = _buildTextStyle(
     weight: FontWeight.w700,
@@ -18,6 +20,15 @@ class AppTypes {
   static TextStyle f14BoldGreen = _buildTextStyle(
     weight: FontWeight.w700,
     color: AppColors.green,
+  );
+  static TextStyle f24BoldWhite = _buildTextStyle(
+    size: 24,
+    weight: FontWeight.w700,
+  );
+  static TextStyle f24BoldWhite38 = _buildTextStyle(
+    size: 24,
+    weight: FontWeight.w700,
+    color: AppColors.white38,
   );
 
   static TextStyle _buildTextStyle({

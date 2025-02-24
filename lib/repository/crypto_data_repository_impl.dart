@@ -1,4 +1,5 @@
 import 'package:crypto_test/model/crypto_data/crypto_data.dart';
+import 'package:crypto_test/model/crypto_price/crypto_price.dart';
 import 'package:crypto_test/repository/%D1%81rypto_data_repository.dart';
 import 'package:crypto_test/service/api_service.dart';
 import 'package:dartz/dartz.dart';
@@ -56,6 +57,19 @@ class CryptoCurrenciesRepositoryImpl implements CryptoDataRepository {
 
       final listCryptoData = await apiService.getCryptoData(ids.join(','));
       return Right(listCryptoData);
+    } catch (e) {
+      return Left(e.toString());
+    }
+  }
+
+Future<Either<String, List<double>>> getCryptoPrice(
+      String cryptoId, String days) async {
+    try {
+      final response = await apiService.getCryptoPrice(cryptoId, days);
+
+      List<double> priceValues = response.prices.map((e) => e[1]).toList();
+
+      return Right(priceValues);
     } catch (e) {
       return Left(e.toString());
     }
