@@ -20,9 +20,7 @@ class _InfoPageState extends State<InfoPage> {
         return Scaffold(
           resizeToAvoidBottomInset: true,
           body: Stack(
-            children: [
-            
-            ],
+            children: [],
           ),
         );
       },

@@ -7,11 +7,11 @@ ThemeData createTheme() {
     useMaterial3: false,
     primaryColor: Colors.white,
     colorScheme: const ColorScheme.light(
-        error: Colors.red,
-        onSurface: AppColors.white,
-        surface: AppColors.white),
+      error: AppColors.red,
+      onSurface: AppColors.white,
+    ),
     fontFamily: AppFonts.mainFont,
-    scaffoldBackgroundColor: Colors.transparent,
+    scaffoldBackgroundColor: AppColors.darkBlue,
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.transparent,
       centerTitle: false,
